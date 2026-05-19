@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftarkan Wajah - FACE RECOGNITION By Azhar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Load face-api.js from jsDelivr CDN - maintained version -->
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+    <script defer src="js/register-script.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="simple-nav">
+            <a href="ml-index.html" class="nav-btn">Deteksi Wajah</a>
+            <a href="register.html" class="nav-btn active">Daftarkan Wajah</a>
+        </nav>
+    </header>
+
+    <main class="ml-container">
+        <div class="ml-header">
+            <h1>📝 Daftar Wajah Baru</h1>
+            <p>Ambil foto wajah Anda untuk didaftarkan ke sistem pengenalan wajah</p>
+        </div>
+
+        <div class="register-container">
+            <div class="video-section">
+                <div class="video-wrapper">
+                    <video id="video" autoplay muted></video>
+                    <canvas id="overlay"></canvas>
+                </div>
+                
+                <div class="capture-controls">
+                    <button id="startBtn" class="btn btn-primary">
+                        <span class="icon">📹</span> Buka Kamera
+                    </button>
+                    <button id="captureBtn" class="btn btn-success">
+                        <span class="icon">📸</span> Ambil Foto
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-card">
+                    <h3>📤 Upload Foto Wajah</h3>
+                    <div class="upload-section">
+                        <label for="photoInput" class="upload-label">
+                            <span class="icon">📁</span> Pilih File Foto Wajah
+                            <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                        </label>
+                        <p class="or-text">atau gunakan kamera di bawah</p>
+                    </div>
+                    
+                    <div class="captured-preview">
+                        <h4>📸 Preview Foto</h4>
+                        <div id="previewContainer">
+                            <img id="capturedImage" alt="Captured face">
+                            <p id="noPreview">Belum ada foto</p>
+                        </div>
+                    </div>
+                    
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nickname">Nama Panggilan</label>
+                            <input type="text" id="nickname" name="nickname" required placeholder="Contoh: Azhar">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pin">PIN (4 Digit)</label>
+                            <input type="password" id="pin" name="pin" maxlength="4" minlength="4" pattern="[0-9]{4}" required placeholder="Masukkan PIN 4 digit" inputmode="numeric">
+                            <small style="color: #666; font-size: 0.85rem;">PIN untuk login setelah deteksi wajah</small>
+                        </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="saveBtn" class="btn btn-primary btn-full">
+                            <span class="icon">💾</span> Simpan Data Wajah & PIN
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-item">
+                <span class="status-label">Status Kamera:</span>
+                <span id="cameraStatus" class="status-value">⏳ Menunggu...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Wajah Terdeteksi:</span>
+                <span id="faceStatus" class="status-value">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Kualitas Wajah:</span>
+                <span id="faceQuality" class="status-value">-</span>
+            </div>
+        </div>
+
+        <div class="known-faces-panel">
+            <h3>👥 Wajah Terdaftar</h3>
+            <div id="registeredFacesList" class="faces-grid">
+                <p class="no-faces">Memuat data wajah...</p>
+            </div>
+        </div>
+
+        <div id="successModal" class="modal">
+            <div class="modal-content success-modal">
+                <div class="success-icon">✅</div>
+                <h2>Berhasil!</h2>
+                <p>Wajah berhasil didaftarkan</p>
+                <button id="closeModalBtn" class="btn btn-primary">Tutup</button>
+            </div>
+        </div>
+
+        <div id="errorModal" class="modal">
+            <div class="modal-content error-modal">
+                <div class="error-icon">❌</div>
+                <h2>Gagal!</h2>
+                <p id="errorMessage">Terjadi kesalahan</p>
+                <button id="closeErrorBtn" class="btn btn-secondary">Tutup</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Powered by face-api.js | FACE RECOGNITION By Azhar</p>
+    </footer>
+</body>
+</html>
+

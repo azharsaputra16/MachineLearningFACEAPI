@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FACE RECOGNITION By Azhar - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Load face-api.js from jsDelivr CDN - maintained version -->
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+    <script defer src="js/ml-script-fixed.js"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="simple-nav">
+            <a href="ml-index.html" class="nav-btn active">Deteksi Wajah</a>
+            <a href="register.html" class="nav-btn">Daftarkan Wajah</a>
+        </nav>
+    </header>
+
+    <main class="login-container">
+        <div class="login-hero">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>🔐 Login Wajah</h1>
+                    <p>Deteksi wajah Anda dan masukkan PIN untuk masuk</p>
+                </div>
+
+                <div class="video-container">
+                    <div class="video-wrapper login-video">
+                        <video id="video" autoplay muted playsinline></video>
+                        <canvas id="overlay"></canvas>
+                    </div>
+                    
+                    <div class="login-controls">
+                        <button id="startBtn" class="btn btn-primary btn-full">
+                            <span class="icon">📱</span> Mulai Face Login
+                        </button>
+                    </div>
+                </div>
+
+                <div class="login-status login-status-panel">
+                    <div class="status-item">
+                        <span class="status-label">Status Login:</span>
+                        <span id="cameraStatus" class="status-value login-status-value">Klik Mulai Face Login</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Wajah Terdeteksi:</span>
+                        <span id="faceCount" class="status-value">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pinModal" class="modal">
+            <div class="modal-content">
+                <h2 id="pinGreeting">Verifikasi PIN</h2>
+                <p>Masukkan PIN untuk <span id="pinNickname"></span></p>
+                <div class="pin-input-group">
+                    <input type="password" id="pinInput" maxlength="4" placeholder="Masukkan PIN 4 digit" inputmode="numeric">
+                    <button id="verifyPinBtn" class="btn btn-primary">Verifikasi</button>
+                    <button id="cancelPinBtn" class="btn btn-secondary">Batal</button>
+                </div>
+                <p id="pinError" class="error hidden"></p>
+            </div>
+        </div>
+
+        </main>
+    
+    <footer>
+        <p>Powered by face-api.js | FACE RECOGNITION By Azhar</p>
+    </footer>
+</body>
+</html>
+

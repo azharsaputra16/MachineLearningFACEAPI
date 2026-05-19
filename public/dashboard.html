@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FACE RECOGNITION By Azhar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js/dashboard.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="simple-nav">
+            <a href="ml-index.html" class="nav-btn">Deteksi Wajah</a>
+<a href="register.html" class="nav-btn">Daftarkan Wajah</a>
+            <a href="dashboard-work-timer.html" class="nav-btn">Mulai Bekerja</a>
+            <a href="#" id="logoutBtn" class="nav-btn">Logout</a>
+        </nav>
+    </header>
+
+    <main class="ml-container">
+        <div class="ml-header">
+            <h1>📊 Dashboard Kerja</h1>
+            <p id="userGreeting">Selamat datang!</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-icon">💰</div>
+                <h3>Saldo Kerja</h3>
+                <div class="metric-value" id="saldoKerja">Rp 0</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">⏱️</div>
+                <h3>Jam Kerja</h3>
+                <div class="metric-value" id="jamKerja">0 jam</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">📅</div>
+                <h3>Waktu Kerja</h3>
+                <div class="metric-value" id="waktuKerja">0 hari</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">🏢</div>
+                <h3>Bagian</h3>
+                <div class="metric-value" id="bagian">Bagian Produksi</div>
+            </div>
+
+
+                <h3>Bonus</h3>
+                <div class="metric-value" id="bonus">Rp 0</div>
+            </div>
+
+
+                <button id="withdrawBtn" class="btn btn-primary btn-full withdraw-btn">
+                    <span class="icon">💸</span> Tarik Uang
+                </button>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h3>ℹ️ Info Dashboard</h3>
+            <ul>
+                <li>💳 Saldo kerja bisa digunakan untuk tarik uang</li>
+                <li>⏰ Jam kerja otomatis terhitung dari login</li>
+                <li>⭐ Bonus diberikan berdasarkan performa</li>
+                <li>💸 Tombol tarik uang akan mengurangi saldo (simulasi)</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>Powered by face-api.js | FACE RECOGNITION By Azhar</p>
+    </footer>
+</body>
+</html>
+

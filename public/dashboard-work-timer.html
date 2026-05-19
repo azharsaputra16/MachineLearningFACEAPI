@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer Kerja - FACE RECOGNITION By Azhar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js/dashboard.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="simple-nav">
+            <a href="dashboard.html" class="nav-btn">← Dashboard</a>
+            <a href="ml-index.html" class="nav-btn">Deteksi Wajah</a>
+            <a href="register.html" class="nav-btn">Daftarkan Wajah</a>
+            <a href="#" id="logoutBtn" class="nav-btn">Logout</a>
+        </nav>
+    </header>
+
+    <main class="ml-container">
+        <div class="ml-header">
+            <h1>⏱️ Timer Kerja</h1>
+            <p>Selamat bekerja! Gaji: Rp 100/menit (Rp 6.000/jam)</p>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-display" id="timerDisplay">00:00:00</div>
+            <div class="earning-display">
+                <div class="earning-item">
+                    <span class="earning-label">Gaji per Menit:</span>
+                    <span class="earning-value" id="salaryPerMin">Rp 100</span>
+                </div>
+                <div class="earning-item">
+                    <span class="earning-label">Gaji per Jam:</span>
+                    <span class="earning-value" id="salaryPerHour">Rp 6.000</span>
+                </div>
+                <div class="earning-item total">
+                    <span class="earning-label">Total Sesi Ini:</span>
+                    <span class="earning-value" id="sessionEarning">Rp 0</span>
+                </div>
+            </div>
+            
+            <div class="timer-controls">
+                <button id="startStopBtn" class="btn btn-primary btn-large">
+                    <span id="btnIcon">▶️</span>
+                    Mulai Kerja
+                </button>
+                <button id="backBtn" class="btn btn-secondary">Kembali ke Dashboard</button>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h3>ℹ️ Cara Kerja Timer</h3>
+            <ul>
+                <li>⏱️ Klik "Mulai Kerja" untuk memulai hitung mundur</li>
+                <li>💰 Gaji otomatis bertambah per menit</li>
+                <li>💾 Data tersimpan otomatis di browser</li>
+                <li>🔄 Klik lagi untuk pause/resume</li>
+                <li>📊 Total gaji masuk ke Saldo Kerja di dashboard</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>Powered by face-api.js | FACE RECOGNITION By Azhar</p>
+    </footer>
+
+    <script>
+        // Inline timer script (will be moved to dashboard.js later)
+        let timerInterval;
+        let seconds = 0;
+        let isRunning = false;
+        const RATE_PER_MINUTE = 100; // Rp 100 per minute
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const sessionEarning = document.getElementById('sessionEarning');
+        const startStopBtn = document.getElementById('startStopBtn');
+        const btnIcon = document.getElementById('btnIcon');
+        const backBtn = document.getElementById('backBtn');
+
+        function updateDisplay() {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            timerDisplay.textContent = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            const minutesWorked = Math.floor(seconds / 60);
+            const earning = minutesWorked * RATE_PER_MINUTE;
+            sessionEarning.textContent = `Rp ${earning.toLocaleString()}`;
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    updateDisplay();
+                }, 1000);
+                isRunning = true;
+                startStopBtn.textContent = 'Pause Kerja';
+                btnIcon.textContent = '⏸️';
+            }
+        }
+
+        function stopTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                startStopBtn.textContent = 'Lanjut Kerja';
+                btnIcon.textContent = '▶️';
+                
+        // Save session data to API
+                const sessionMinutes = Math.floor(seconds / 60);
+                const sessionEarningAmount = sessionMinutes * RATE_PER_MINUTE;
+                
+                const userId = localStorage.getItem('currentUserId') || 1;
+                
+                // Save session
+                fetch('../api/timer_session.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        user_id: userId,
+                        seconds_worked: seconds,
+                        earning: sessionEarningAmount
+                    })
+                }).catch(console.error);
+                
+                // Update totals
+                fetch('../api/update_workdata.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        user_id: userId,
+                        total_seconds: seconds,
+                        total_earning: sessionEarningAmount
+                    })
+                }).catch(console.error);
+            }
+        }
+
+        startStopBtn.addEventListener('click', () => {
+            if (isRunning) {
+                stopTimer();
+            } else {
+                startTimer();
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            if (isRunning) stopTimer();
+            window.location.href = 'dashboard.html';
+        });
+
+        // Load previous data on page load (no change needed, session local)
+        seconds = 0;
+        updateDisplay();
+    </script>
+</body>
+</html>
