@@ -240,15 +240,9 @@ function renderRegisteredFaces(faces) {
         // Gunakan fallback ke properti yang mungkin dikirim PHP
         const nameToShow = face.nama_panggilan || face.nickname || 'Tanpa Nama';
         const fullName = face.nama_lengkap || face.name || '-';
-        const faceId = face.id;
 
         return `
             <div class="face-card">
-                <button
-                    class="delete-btn"
-                    onclick="deleteFace(${faceId}, '${String(nameToShow).replace(/'/g, "\\'")}')">
-                    ✕
-                </button>
                 <div class="name">${nameToShow}</div>
                 <div class="nickname">${fullName}</div>
             </div>
@@ -256,34 +250,7 @@ function renderRegisteredFaces(faces) {
     }).join('');
 }
 
-// Delete face
-async function deleteFace(id, nama) {
-    if (!confirm(`Yakin hapus wajah "${nama}"?`)) return;
-
-    try {
-const res = await fetch("/api/delete_face.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id: id })
-        });
-
-        const result = await res.json();
-
-        if (result.success) {
-            alert("Wajah berhasil dihapus");
-            loadRegisteredFaces();
-        } else {
-            alert(result.error || "Gagal hapus");
-        }
-
-    } catch (err) {
-        console.error(err);
-        alert("Server error");
-    }
-}
-
+// (Hapus fitur delete wajah: tombol ✕ dan fungsi deleteFace dinonaktifkan) 
 
 // Save face to API - FIXED VERSION 1: RELATIVE PATH '../api/register.php'
 // ===============================================================

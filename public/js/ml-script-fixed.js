@@ -137,7 +137,7 @@ async function verifyPin() {
     console.log(currentMatchedNickname);
 
     // gunakan path absolut agar proxy Express tepat.
-    const res = await fetch("http://localhost/webprojek/api/login.php", {
+    const res = await fetch("http://localhost/webprojek/api/delete_face.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

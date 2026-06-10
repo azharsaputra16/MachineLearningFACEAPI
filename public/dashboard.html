@@ -10,8 +10,7 @@
 <body>
     <header>
         <nav class="simple-nav">
-            <a href="ml-index.html" class="nav-btn">Deteksi Wajah</a>
-<a href="register.html" class="nav-btn">Daftarkan Wajah</a>
+            <a href="dashboard.html" class="nav-btn">Dashboard</a>
             <a href="dashboard-work-timer.html" class="nav-btn">Mulai Bekerja</a>
             <a href="#" id="logoutBtn" class="nav-btn">Logout</a>
         </nav>
@@ -69,7 +68,31 @@
                 <li>💸 Tombol tarik uang akan mengurangi saldo (simulasi)</li>
             </ul>
         </div>
+
+        <div class="info-panel">
+            <h3>📋 Aktivitas Kerja</h3>
+
+            <div class="muted" id="worklogsLoading" style="margin-bottom: 1rem;">Memuat...</div>
+            <div class="muted" id="worklogsEmpty" style="display:none; margin-bottom: 1rem;">Belum ada aktivitas kerja</div>
+
+
+            <div style="overflow-x:auto;">
+                <table id="worklogsTable" class="worklogs-table" style="width:100%; border-collapse: collapse; display:none;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left; padding: 0.75rem; border-bottom: 1px solid #eee;">Tanggal</th>
+                            <th style="text-align:left; padding: 0.75rem; border-bottom: 1px solid #eee;">Deskripsi</th>
+                            <th style="text-align:left; padding: 0.75rem; border-bottom: 1px solid #eee;">Durasi</th>
+                            <th style="text-align:left; padding: 0.75rem; border-bottom: 1px solid #eee;">Pendapatan</th>
+                            <th style="text-align:center; padding: 0.75rem; border-bottom: 1px solid #eee;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="worklogsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
     </main>
+
 
     <footer>
         <p>Powered by face-api.js | FACE RECOGNITION By Azhar</p>
